@@ -137,7 +137,7 @@ class BaseDataset(Dataset):
             )
 
         if limit is not None:
-            random.seed(42)  # best seed for deep learning
+            random.seed(3407)  # best seed for deep learning
             random.shuffle(index)
-            index = index[:limit]
+        index = index[:limit]
         return index
