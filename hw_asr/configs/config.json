@@ -14,21 +14,21 @@
     "spectrogram": []
   },
   "arch": {
-    "type": "BaselineModel",
+    "type": "CheckpointModel",
     "args": {
       "n_feats": 128,
-      "fc_hidden": 512
+      "fc_hidden": 300
     }
   },
   "data": {
     "train": {
-      "batch_size": 20,
+      "batch_size": 4,
       "num_workers": 5,
       "datasets": [
         {
           "type": "LibrispeechDataset",
           "args": {
-            "part": "train-clean-100",
+            "part": "dev-clean",
             "max_audio_length": 20.0,
             "max_text_length": 200,
             "limit": 20
@@ -37,7 +37,7 @@
       ]
     },
     "val": {
-      "batch_size": 20,
+      "batch_size": 4,
       "num_workers": 5,
       "datasets": [
         {
@@ -53,9 +53,9 @@
     }
   },
   "optimizer": {
-    "type": "SGD",
+    "type": "Adam",
     "args": {
-      "lr": 3e-4
+      "lr": 1e-2
     }
   },
   "loss": {
@@ -77,17 +77,14 @@
     }
   ],
   "lr_scheduler": {
-    "type": "OneCycleLR",
+    "type": "StepLR",
     "args": {
-      "steps_per_epoch": 100,
-      "epochs": 50,
-      "anneal_strategy": "cos",
-      "max_lr": 4e-3,
-      "pct_start": 0.2
+      "step_size": 200,
+      "gamma": 0.95
     }
   },
   "trainer": {
-    "epochs": 50,
+    "epochs": 200,
     "save_dir": "saved/",
     "save_period": 5,
     "verbosity": 2,
