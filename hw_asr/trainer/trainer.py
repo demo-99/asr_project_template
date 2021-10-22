@@ -136,7 +136,7 @@ class Trainer(BaseTrainer):
         else:
             batch["logits"] = outputs
 
-        batch["log_probs"] = torch.clip(F.log_softmax(batch["logits"], dim=-1), -1e6, 1e6)
+        batch["log_probs"] = F.log_softmax(batch["logits"], dim=-1)
         batch["log_probs_length"] = self.model.transform_input_lengths(
             batch["spectrogram_length"]
         )
