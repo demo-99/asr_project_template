@@ -84,7 +84,9 @@ class QuartzNet(BaseModel):
         print(spectrogram.size())
         out = self.encoder(spectrogram)
         print(out.size())
-        return self.fc(out)
+        res =  self.fc(out)
+        print(res.size())
+        return res
 
     def transform_input_lengths(self, input_lengths):
         return input_lengths  # we don't reduce time dimension here
