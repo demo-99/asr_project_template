@@ -78,7 +78,7 @@ class QuartzNet(BaseModel):
         self.encoder = nn.Sequential(*layers)
         self.classify = nn.Conv1d(1024, n_class, kernel_size=1, bias=True)
 
-    def forward(self, x):
+    def forward(self, x, *args, **kwargs):
         out = self.encoder(x)
         return self.classify(out)
 
