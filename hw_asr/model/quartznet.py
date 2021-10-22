@@ -82,6 +82,7 @@ class QuartzNet(BaseModel):
     def forward(self, spectrogram, *args, **kwargs):
         spectrogram = spectrogram.permute(0, 2, 1)
         out = self.encoder(spectrogram)
+        print(self.fc(out).size())
         return self.fc(out).permute(0, 2, 1)
 
     def transform_input_lengths(self, input_lengths):
