@@ -137,8 +137,6 @@ class Trainer(BaseTrainer):
             batch["logits"] = outputs
 
         batch["log_probs"] = F.log_softmax(batch["logits"], dim=-1)
-        if torch.any(batch["log_probs"] == float('-inf')):
-            print(batch)
         batch["log_probs_length"] = self.model.transform_input_lengths(
             batch["spectrogram_length"]
         )
