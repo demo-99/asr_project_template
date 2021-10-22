@@ -19,7 +19,6 @@ class CheckpointModel(BaseModel):
         self.hidden = self.init_hidden()
         logits, self.hidden = self.lstm(spectrogram, self.hidden)
         logits = self.fc(logits)
-        print(logits.size())
         return logits
 
     def transform_input_lengths(self, input_lengths):
