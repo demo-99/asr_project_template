@@ -84,7 +84,7 @@ class QuartzNet(BaseModel):
     def forward(self, spectrogram, *args, **kwargs):
         spectrogram = spectrogram.permute(0, 2, 1)
         out = self.encoder(spectrogram)
-        return self.fc(out).permute(0, 2, 1)
+        return torch.clip(self.fc(out).permute(0, 2, 1), -1e6, 1e6)
 
     def transform_input_lengths(self, input_lengths):
         return input_lengths // 4
