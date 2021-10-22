@@ -37,7 +37,7 @@
         {
           "type": "LibrispeechDataset",
           "args": {
-            "part": "dev-clean",
+            "part": "train-clean-100",
             "max_audio_length": 20.0,
             "max_text_length": 200
           }
@@ -102,6 +102,6 @@
     "visualize": "wandb",
     "wandb_project": "asr_project",
     "len_epoch": 100,
-    "grad_norm_clip": 10
+    "grad_norm_clip": 15
   }
 }
