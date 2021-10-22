@@ -78,8 +78,8 @@ class QuartzNet(BaseModel):
         self.encoder = nn.Sequential(*layers)
         self.classify = nn.Conv1d(1024, n_class, kernel_size=1, bias=True)
 
-    def forward(self, x, *args, **kwargs):
-        out = self.encoder(x)
+    def forward(self, spectrogram, *args, **kwargs):
+        out = self.encoder(spectrogram)
         return self.classify(out)
 
     def transform_input_lengths(self, input_lengths):
