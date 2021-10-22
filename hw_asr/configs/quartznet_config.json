@@ -88,12 +88,12 @@
   "lr_scheduler": {
     "type": "StepLR",
     "args": {
-      "step_size": 2000,
+      "step_size": 200,
       "gamma": 0.9
     }
   },
   "trainer": {
-    "epochs": 500,
+    "epochs": 100,
     "save_dir": "saved/",
     "save_period": 5,
     "verbosity": 2,
