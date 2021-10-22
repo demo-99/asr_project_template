@@ -35,6 +35,7 @@ class TCSConvBlock(nn.Module):
         for _ in range(repeat-1):
             layers.append(ConvBlock(out_feats, out_feats, kernel_size=kernel_size, stride=stride, dilation=dilation,
                                     padding=padding_val, dropout=dropout, tcs=tcs))
+        self.net = nn.Sequential(*layers)
         self.residual = residual
         if self.residual:
             self.residual_layer = ConvBlock(
@@ -76,11 +77,11 @@ class QuartzNet(BaseModel):
             in_feats = cfg['hidden']
 
         self.encoder = nn.Sequential(*layers)
-        self.classify = nn.Conv1d(1024, n_class, kernel_size=1, bias=True)
+        self.fc = nn.Conv1d(1024, n_class, kernel_size=1, bias=True)
 
     def forward(self, spectrogram, *args, **kwargs):
         out = self.encoder(spectrogram)
-        return self.classify(out)
+        return self.fc(out)
 
     def transform_input_lengths(self, input_lengths):
         return input_lengths  # we don't reduce time dimension here
