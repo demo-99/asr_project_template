@@ -39,7 +39,7 @@ class TCSConvBlock(nn.Module):
         self.residual = residual
         if self.residual:
             self.residual_layer = ConvBlock(
-                in_feats, out_feats, kernel_size=kernel_size, dropout=dropout)
+                out_feats, out_feats, kernel_size=kernel_size, dropout=dropout)
 
     def forward(self, x):
         out = self.net(x)
