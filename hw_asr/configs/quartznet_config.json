@@ -45,7 +45,7 @@
       ]
     },
     "val": {
-      "batch_size": 256,
+      "batch_size": 128,
       "num_workers": 2,
       "datasets": [
         {
