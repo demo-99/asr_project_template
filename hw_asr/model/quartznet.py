@@ -12,7 +12,9 @@ class ConvBlock(nn.Module):
         if tcs:
             layers.append(nn.Conv1d(in_feats, in_feats, kernel_size, stride=stride,
                                     dilation=dilation, padding=padding, groups=in_feats))
-        layers.append(nn.Conv1d(in_feats, out_feats, kernel_size, stride=stride, dilation=dilation, padding=padding))
+            layers.append(nn.Conv1d(in_feats, out_feats, kernel_size=1, stride=1, dilation=1, padding=0))
+        else:
+            layers.append(nn.Conv1d(in_feats, out_feats, kernel_size, stride=stride, dilation=dilation, padding=padding))
         self.conv_block = nn.Sequential(
             *layers,
             nn.BatchNorm1d(out_feats, eps=1e-3, momentum=0.1),
