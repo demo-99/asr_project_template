@@ -31,7 +31,7 @@ class TCSConvBlock(nn.Module):
                  kernel_size=11, stride=1, residual=True,
                  dilation=1, dropout=0.2, tcs=False):
         super().__init__()
-        padding_val = (dilation * kernel_size) // 2 - 1 if dilation > 1 else kernel_size // 2
+        padding_val = ((dilation * kernel_size) // 2 - 1) if dilation > 1 else (kernel_size // 2)
         layers = [ConvBlock(in_feats, out_feats, kernel_size=kernel_size, stride=stride, dilation=dilation,
                             padding=padding_val, dropout=dropout, tcs=tcs)]
         for _ in range(repeat-1):
@@ -79,7 +79,7 @@ class QuartzNet(BaseModel):
             in_feats = cfg['hidden']
 
         self.encoder = nn.Sequential(*layers)
-        self.fc = nn.Conv1d(1024, n_class, kernel_size=1, bias=True)
+        self.fc = nn.Conv1d(model_config[-1]['hidden'], n_class, kernel_size=1, bias=True)
 
     def forward(self, spectrogram, *args, **kwargs):
         spectrogram = spectrogram.permute(0, 2, 1)

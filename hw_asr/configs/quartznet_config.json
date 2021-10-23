@@ -1,5 +1,5 @@
 {
-  "name": "default_config",
+  "name": "quartznet_config",
   "n_gpu": 1,
   "preprocessing": {
     "sr": 16000,
@@ -10,8 +10,18 @@
     }
   },
   "augmentations": {
-    "wave": [],
-    "spectrogram": []
+    "wave": [
+      {
+        "type": "HahnWindow",
+        "args": {}
+      }
+    ],
+    "spectrogram": [
+      {
+        "type": "RandomFourierTransform",
+        "args": {}
+      }
+    ]
   },
   "arch": {
     "type": "QuartzNet",
@@ -31,7 +41,7 @@
   },
   "data": {
     "train": {
-      "batch_size": 80,
+      "batch_size": 64,
       "num_workers": 16,
       "datasets": [
         {
@@ -46,12 +56,12 @@
     },
     "val": {
       "batch_size": 64,
-      "num_workers": 2,
+      "num_workers": 16,
       "datasets": [
         {
           "type": "LibrispeechDataset",
           "args": {
-            "part": "test-clean",
+            "part": "dev-clean",
             "max_audio_length": 20.0,
             "max_text_length": 200
           }
@@ -101,6 +111,6 @@
     "visualize": "wandb",
     "wandb_project": "asr_project",
     "len_epoch": 500,
-    "grad_norm_clip": 15
+    "grad_norm_clip": 10
   }
 }
