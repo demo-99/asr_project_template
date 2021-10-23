@@ -12,12 +12,14 @@
   "augmentations": {
     "wave": [
       {
-        "type": "HahnWindow"
+        "type": "HahnWindow",
+        "args": {}
       }
     ],
     "spectrogram": [
       {
-        "type": "RandomFourierTransform"
+        "type": "RandomFourierTransform",
+        "args": {}
       }
     ]
   },
