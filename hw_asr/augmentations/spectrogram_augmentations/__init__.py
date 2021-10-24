@@ -1,5 +1,5 @@
 import torch
-import audiomentations
+import torchaudio
 
 from random import random
 
@@ -7,9 +7,9 @@ from random import random
 from hw_asr.augmentations.base import AugmentationBase
 
 
-class SpecFrequencyMask(AugmentationBase):
+class FrequencyMasking(AugmentationBase):
     def __init__(self, *args, **kwargs):
-        self._aug = audiomentations.SpecFrequencyMask(*args, **kwargs)
+        self._aug = torchaudio.transforms.FrequencyMasking(*args, **kwargs)
 
     def __call__(self, data: torch.Tensor):
         x = data.unsqueeze(1)

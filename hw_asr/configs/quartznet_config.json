@@ -24,8 +24,10 @@
     ],
     "spectrogram": [
       {
-        "type": "SpecFrequencyMask",
-        "args": {}
+        "type": "FrequencyMasking",
+        "args": {
+          "freq_mask_param": 80
+        }
       }
     ]
   },
