@@ -26,7 +26,7 @@
       {
         "type": "FrequencyMasking",
         "args": {
-          "freq_mask_param": 80
+          "freq_mask_param": 40
         }
       }
     ]
@@ -49,8 +49,8 @@
   },
   "data": {
     "train": {
-      "batch_size": 64,
-      "num_workers": 0,
+      "batch_size": 32,
+      "num_workers": 2,
       "datasets": [
         {
           "type": "LibrispeechDataset",
@@ -63,8 +63,8 @@
       ]
     },
     "val": {
-      "batch_size": 64,
-      "num_workers": 0,
+      "batch_size": 32,
+      "num_workers": 2,
       "datasets": [
         {
           "type": "LibrispeechDataset",
