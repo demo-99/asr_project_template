@@ -7,7 +7,7 @@ from hw_asr.augmentations.base import AugmentationBase
 
 
 class RandomFourierTransform(AugmentationBase):
-    def __init__(self, n_fft: int = 128, p: float = 0.2, *args, **kwargs):
+    def __init__(self, n_fft: int = 1024, p: float = 0.2, *args, **kwargs):
         self.n_fft = n_fft
         self.p = p
 
