@@ -3,6 +3,7 @@ from typing import List
 
 import hw_asr.augmentations.spectrogram_augmentations
 import hw_asr.augmentations.wave_augmentations
+from hw_asr.augmentations.random_apply import RandomApply
 from hw_asr.augmentations.sequential import SequentialAugmentation
 from hw_asr.utils.parse_config import ConfigParser
 
@@ -11,16 +12,38 @@ def from_configs(configs: ConfigParser):
     wave_augs = []
     if "augmentations" in configs.config and "wave" in configs.config["augmentations"]:
         for aug_dict in configs.config["augmentations"]["wave"]:
-            wave_augs.append(
-                configs.init_obj(aug_dict, hw_asr.augmentations.wave_augmentations)
-            )
+            if aug_dict['type'] == "RandomApply":
+                wave_augs.append(
+                    RandomApply(
+                        augmentation=configs.init_obj(
+                            aug_dict["augmentation"],
+                            hw_asr.augmentations.wave_augmentations
+                        ),
+                        p=aug_dict['p']
+                    )
+                )
+            else:
+                wave_augs.append(
+                    configs.init_obj(aug_dict, hw_asr.augmentations.wave_augmentations)
+                )
 
     spec_augs = []
     if "augmentations" in configs.config and "spectrogram" in configs.config["augmentations"]:
         for aug_dict in configs.config["augmentations"]["spectrogram"]:
-            spec_augs.append(
-                configs.init_obj(aug_dict, hw_asr.augmentations.spectrogram_augmentations)
-            )
+            if aug_dict['type'] == "RandomApply":
+                wave_augs.append(
+                    RandomApply(
+                        augmentation=configs.init_obj(
+                            aug_dict["augmentation"],
+                            hw_asr.augmentations.spectrogram_augmentations
+                        ),
+                        p=aug_dict['p']
+                    )
+                )
+            else:
+                spec_augs.append(
+                    configs.init_obj(aug_dict, hw_asr.augmentations.spectrogram_augmentations)
+                )
     return _to_function(wave_augs), _to_function(spec_augs)
 
 
