@@ -9,4 +9,4 @@ class PeakNormalization(AugmentationBase):
         self._aug = torch_audiomentations.PeakNormalization(*args, **kwargs)
 
     def __call__(self, data: Tensor):
-        return self._aug(x)
+        return self._aug(data.numpy())
