@@ -31,7 +31,7 @@
   },
   "data": {
     "train": {
-      "batch_size": 80,
+      "batch_size": 40,
       "num_workers": 8,
       "datasets": [
         {
@@ -45,7 +45,7 @@
       ]
     },
     "val": {
-      "batch_size": 80,
+      "batch_size": 40,
       "num_workers": 8,
       "datasets": [
         {
