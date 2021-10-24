@@ -10,26 +10,8 @@
     }
   },
   "augmentations": {
-    "wave": [
-      {
-        "type": "Gain",
-        "args": {}
-      },
-      {
-        "type": "PeakNormalization",
-        "args": {
-          "apply_to": "only_too_loud_sounds"
-        }
-      }
-    ],
-    "spectrogram": [
-      {
-        "type": "FrequencyMasking",
-        "args": {
-          "freq_mask_param": 40
-        }
-      }
-    ]
+    "wave": [],
+    "spectrogram": []
   },
   "arch": {
     "type": "QuartzNet",
