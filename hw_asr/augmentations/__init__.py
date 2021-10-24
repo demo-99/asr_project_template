@@ -16,10 +16,10 @@ def from_configs(configs: ConfigParser):
                 wave_augs.append(
                     RandomApply(
                         augmentation=configs.init_obj(
-                            aug_dict["augmentation"],
+                            aug_dict['args']['augmentation'],
                             hw_asr.augmentations.wave_augmentations
                         ),
-                        p=aug_dict['p']
+                        p=aug_dict['args']['p']
                     )
                 )
             else:
@@ -34,10 +34,10 @@ def from_configs(configs: ConfigParser):
                 wave_augs.append(
                     RandomApply(
                         augmentation=configs.init_obj(
-                            aug_dict["augmentation"],
+                            aug_dict['args']['augmentation'],
                             hw_asr.augmentations.spectrogram_augmentations
                         ),
-                        p=aug_dict['p']
+                        p=aug_dict['args']['p']
                     )
                 )
             else:
