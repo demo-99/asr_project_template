@@ -1,10 +1,13 @@
 import torch
 import torchaudio
 
-from random import random
-
-
+from ..random_apply import RandomApply
 from hw_asr.augmentations.base import AugmentationBase
+
+
+__all__ = [
+    "RandomApply"
+]
 
 
 class FrequencyMasking(AugmentationBase):
