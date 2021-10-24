@@ -14,5 +14,3 @@ torch_audiomentations
 editdistance
 jiwer
 wandb
-pydub
-audiomentations
