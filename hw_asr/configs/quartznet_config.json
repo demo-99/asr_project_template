@@ -42,7 +42,7 @@
   "data": {
     "train": {
       "batch_size": 80,
-      "num_workers": 2,
+      "num_workers": 8,
       "datasets": [
         {
           "type": "LibrispeechDataset",
@@ -56,7 +56,7 @@
     },
     "val": {
       "batch_size": 80,
-      "num_workers": 2,
+      "num_workers": 8,
       "datasets": [
         {
           "type": "LibrispeechDataset",
@@ -102,7 +102,7 @@
     }
   },
   "trainer": {
-    "epochs": 20,
+    "epochs": 50,
     "save_dir": "saved/",
     "save_period": 5,
     "verbosity": 2,
@@ -110,7 +110,7 @@
     "early_stop": 100,
     "visualize": "wandb",
     "wandb_project": "asr_project",
-    "len_epoch": 500,
+    "len_epoch": 200,
     "grad_norm_clip": 15
   }
 }
