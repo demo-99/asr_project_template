@@ -10,18 +10,8 @@
     }
   },
   "augmentations": {
-    "wave": [
-      {
-        "type": "HahnWindow",
-        "args": {}
-      }
-    ],
-    "spectrogram": [
-      {
-        "type": "RandomFourierTransform",
-        "args": {}
-      }
-    ]
+    "wave": [],
+    "spectrogram": []
   },
   "arch": {
     "type": "QuartzNet",
@@ -95,10 +85,9 @@
     }
   ],
   "lr_scheduler": {
-    "type": "StepLR",
+    "type": "CosineAnnealingLR",
     "args": {
-      "step_size": 200,
-      "gamma": 0.9
+      "T_max": 600
     }
   },
   "trainer": {

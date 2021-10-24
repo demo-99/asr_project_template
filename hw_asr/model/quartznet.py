@@ -82,8 +82,7 @@ class QuartzNet(BaseModel):
         self.fc = nn.Conv1d(model_config[-1]['hidden'], n_class, kernel_size=1, dilation=2)
 
     def forward(self, spectrogram, *args, **kwargs):
-        spectrogram = spectrogram.permute(0, 2, 1)
-        out = self.encoder(spectrogram)
+        out = self.encoder(spectrogram.permute(0, 2, 1))
         return self.fc(out).permute(0, 2, 1)
 
     def transform_input_lengths(self, input_lengths):
