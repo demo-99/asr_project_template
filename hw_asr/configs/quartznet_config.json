@@ -16,8 +16,10 @@
         "args": {}
       },
       {
-        "type": "AddBackgroundNoise",
-        "args": {}
+        "type": "PeakNormalization",
+        "args": {
+          "apply_to": "only_too_loud_sounds"
+        }
       }
     ],
     "spectrogram": [
