@@ -148,9 +148,9 @@ class Trainer(BaseTrainer):
             if self.lr_scheduler is not None:
                 self.lr_scheduler.step()
 
-        metrics.update("loss", batch["loss"].item())
+        metrics.update("loss", batch["loss"].item(), is_train)
         for met in self.metrics:
-            metrics.update(met.name, met(**batch))
+            metrics.update(met.name, met(**batch), is_train)
         return batch
 
     def _valid_epoch(self, epoch):
@@ -179,8 +179,8 @@ class Trainer(BaseTrainer):
             self._log_spectrogram(batch["spectrogram"])
 
         # add histogram of model parameters to the tensorboard
-        # for name, p in self.model.named_parameters():
-        #     self.writer.add_histogram(name, p, bins="auto")
+        for name, p in self.model.named_parameters():
+            self.writer.add_histogram(name, p, bins="auto")
         return self.valid_metrics.result()
 
     def _progress(self, batch_idx):
