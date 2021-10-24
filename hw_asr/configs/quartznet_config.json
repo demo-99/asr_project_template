@@ -10,18 +10,8 @@
     }
   },
   "augmentations": {
-    "wave": [
-      {
-        "type": "HahnWindow",
-        "args": {}
-      }
-    ],
-    "spectrogram": [
-      {
-        "type": "RandomFourierTransform",
-        "args": {}
-      }
-    ]
+    "wave": [],
+    "spectrogram": []
   },
   "arch": {
     "type": "QuartzNet",
