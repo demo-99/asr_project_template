@@ -12,21 +12,40 @@
   "augmentations": {
     "wave": [
       {
-        "type": "Gain",
-        "args": {}
+        "type": "RandomApply",
+        "args": {
+          "p": 0.2,
+          "augmentation": {
+            "type": "Gain",
+            "args": {}
+          }
+        }
       },
       {
-        "type": "PeakNormalization",
+        "type": "RandomApply",
         "args": {
-          "apply_to": "only_too_loud_sounds"
+          "p": 0.2,
+          "augmentation": {
+            "type": "PeakNormalization",
+            "args": {
+              "apply_to": "only_too_loud_sounds"
+            }
+          }
         }
       }
+
     ],
     "spectrogram": [
       {
-        "type": "FrequencyMasking",
+        "type": "RandomApply",
         "args": {
-          "freq_mask_param": 40
+          "p": 0.2,
+          "augmentation": {
+            "type": "FrequencyMasking",
+            "args": {
+              "freq_mask_param": 40
+            }
+          }
         }
       }
     ]
