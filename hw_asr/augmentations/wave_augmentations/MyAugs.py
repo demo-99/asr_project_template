@@ -2,15 +2,12 @@ import torch
 import torch_audiomentations
 
 from hw_asr.augmentations.base import AugmentationBase
-from random import random
 
 
-class HahnWindow(AugmentationBase):
-    def __init__(self, p: float = 0.2, *args, **kwargs):
-        self.p = p
+class AddBackgroundNoise(AugmentationBase):
+    def __init__(self, *args, **kwargs):
+        self._aug = torch_audiomentations.AddBackgroundNoise(*args, **kwargs)
 
     def __call__(self, data: torch.Tensor):
-        if random() < self.p:
-            return torch.hann_window(data.size(-1)) * data
-        else:
-            return data
+        x = data.unsqueeze(1)
+        return self._aug(x).squeeze(1)

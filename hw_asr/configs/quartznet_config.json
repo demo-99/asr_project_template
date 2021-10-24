@@ -10,8 +10,22 @@
     }
   },
   "augmentations": {
-    "wave": [],
-    "spectrogram": []
+    "wave": [
+      {
+        "type": "Gain",
+        "args": {}
+      },
+      {
+        "type": "AddBackgroundNoise",
+        "args": {}
+      }
+    ],
+    "spectrogram": [
+      {
+        "type": "SpecFrequencyMask",
+        "args": {}
+      }
+    ]
   },
   "arch": {
     "type": "QuartzNet",
@@ -32,7 +46,7 @@
   "data": {
     "train": {
       "batch_size": 64,
-      "num_workers": 16,
+      "num_workers": 0,
       "datasets": [
         {
           "type": "LibrispeechDataset",
@@ -46,7 +60,7 @@
     },
     "val": {
       "batch_size": 64,
-      "num_workers": 16,
+      "num_workers": 0,
       "datasets": [
         {
           "type": "LibrispeechDataset",
@@ -62,7 +76,7 @@
   "optimizer": {
     "type": "Adam",
     "args": {
-      "lr": 3e-3,
+      "lr": 3e-4,
       "weight_decay": 1e-4
     }
   },
@@ -87,7 +101,7 @@
   "lr_scheduler": {
     "type": "CosineAnnealingLR",
     "args": {
-      "T_max": 600
+      "T_max": 2000
     }
   },
   "trainer": {

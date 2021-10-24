@@ -1,4 +1,5 @@
 import torch
+import audiomentations
 
 from random import random
 
@@ -6,13 +7,10 @@ from random import random
 from hw_asr.augmentations.base import AugmentationBase
 
 
-class RandomFourierTransform(AugmentationBase):
-    def __init__(self, n_fft: int = 32, p: float = 0.2, *args, **kwargs):
-        self.n_fft = n_fft
-        self.p = p
+class SpecFrequencyMask(AugmentationBase):
+    def __init__(self, *args, **kwargs):
+        self._aug = audiomentations.SpecFrequencyMask(*args, **kwargs)
 
     def __call__(self, data: torch.Tensor):
-        if random() < self.p:
-            return torch.fft.rfft(data, n=self.n_fft).abs().pow(2)
-        else:
-            return data
+        x = data.unsqueeze(1)
+        return self._aug(x).squeeze(1)
