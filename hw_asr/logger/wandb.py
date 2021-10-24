@@ -68,8 +68,8 @@ class WanDBWriter:
         }, step=self.step)
 
     def add_histogram(self, scalar_name, hist, bins=None):
-        hist = hist.detach().cpu().numpy()
-        np_hist = np.histogram(hist, bins=np.histogram_bin_edges(hist, bins=bins))
+        hist = hist.detach().cpu().numpy().astype(np.float32)
+        np_hist = np.histogram(hist, bins=bins)
         if np_hist[0].shape[0] > 512:
             np_hist = np.histogram(hist, bins=512)
 
