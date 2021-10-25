@@ -25,7 +25,6 @@ class MaskCNN(nn.Module):
                     mask[i].narrow(dim=2, start=seq_length, length=mask[i].size(2) - seq_length).fill_(1)
 
             output = output.masked_fill(mask, 0)
-            inputs = output
 
         return output
 
@@ -113,7 +112,7 @@ class DeepSpeech2(nn.Module):
         inputs = spectrogram.unsqueeze(1).permute(0, 1, 3, 2)
         outputs = self.conv(inputs, inputs.size(-1))
         batch_size, num_channels, hidden_dim, seq_length = outputs.size()
-        outputs = outputs.view(batch_size, num_channels * hidden_dim, seq_length).permute(2, 0, 1).contiguous()
+        outputs = outputs.view(batch_size, num_channels * hidden_dim, seq_length).permute(2, 0, 1)
 
         for layer in self.layers:
             outputs = layer(outputs)
