@@ -29,16 +29,16 @@ class MaskCNN(nn.Module):
 
         return output
 
-    def _get_sequence_length(self, module, seq_lengths):
+    def _get_sequence_length(self, module, seq_length):
         if isinstance(module, nn.Conv2d):
-            numerator = seq_lengths + 2 * module.padding[1] - module.dilation[1] * (module.kernel_size[1] - 1) - 1
-            seq_lengths = numerator / module.stride[1]
-            seq_lengths = seq_lengths + 1
+            numerator = seq_length + 2 * module.padding[1] - module.dilation[1] * (module.kernel_size[1] - 1) - 1
+            seq_length = numerator / module.stride[1]
+            seq_length = seq_length + 1
 
         elif isinstance(module, nn.MaxPool2d):
-            seq_lengths >>= 1
+            seq_length *= 2
 
-        return seq_lengths.int()
+        return seq_length
 
 
 class BNReluRNN(nn.Module):
