@@ -237,7 +237,8 @@ class Trainer(BaseTrainer):
             for log_prob, log_prob_length in zip(log_probs, log_probs_length):
                 beam_search_preds.append(
                     self.text_encoder.ctc_beam_search(
-                        log_prob[:int(log_prob_length)].unsqueeze(0)
+                        log_prob[:int(log_prob_length)].unsqueeze(0),
+                        beam_size=self.config["trainer"].get('beam_size', 100)
                     )
                 )
 
