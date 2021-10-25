@@ -56,11 +56,11 @@
       "n_feats": 128,
       "model_config": [
         {"hidden": 256, "repeat": 1, "kernel": 33, "stride": 2, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": true},
-        {"hidden": 256, "repeat": 2, "kernel": 33, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 256, "repeat": 2, "kernel": 39, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 2, "kernel": 51, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 2, "kernel": 63, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 2, "kernel": 75, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 256, "repeat": 5, "kernel": 33, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 256, "repeat": 5, "kernel": 39, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 5, "kernel": 51, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 5, "kernel": 63, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 5, "kernel": 75, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
         {"hidden": 512, "repeat": 1, "kernel": 87, "stride": 1, "dilation": 2, "dropout": 0.0, "residual": false, "tcs": true},
         {"hidden": 1024, "repeat": 1, "kernel": 1, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": false}
       ]
