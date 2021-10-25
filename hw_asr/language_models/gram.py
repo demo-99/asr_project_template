@@ -9,8 +9,8 @@ def pretrained_language_model(language_model_path: str = '3-gram.pruned.1e-7.arp
     language_model_path = Path(language_model_path)
     if not language_model_path.exists():
         print('Downloading pretrained 3-gram language model.')
-        lm_url = Path('https://www.openslr.org/resources/11') / language_model_path
-        language_model_path = wget.download('http://www.openslr.org/resources/11/3-gram.pruned.1e-7.arpa.gz')
+        lm_url = 'https://www.openslr.org/resources/11/' + str(anguage_model_path)
+        language_model_path = wget.download(lm_url)
         print('Downloaded pretrained 3-gram language model.')
 
     upper_language_model_path = language_model_path.with_suffix('')
@@ -20,7 +20,7 @@ def pretrained_language_model(language_model_path: str = '3-gram.pruned.1e-7.arp
                 shutil.copyfileobj(f_zipped, f_unzipped)
         print('Unzipped the 3-gram language model.')
 
-    lower_language_model_path = 'lowercase_' + language_model_path
+    lower_language_model_path = Path('lowercase_' + str(language_model_path))
     if not lower_language_model_path.exists():
         with upper_language_model_path.open('r') as f_upper:
             with lower_language_model_path.open('w') as f_lower:
