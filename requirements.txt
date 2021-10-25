@@ -15,5 +15,5 @@ editdistance~=0.6.0
 jiwer
 wandb~=0.12.4
 ctcdecode
-Pillow~=8.3.2
-wget~=3.2
+Pillow
+wget
