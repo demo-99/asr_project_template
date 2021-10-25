@@ -45,7 +45,7 @@
     ]
   },
   "arch": {
-    "type": "QuartzNet",
+    "type": "DeepSpeech2",
     "args": {
       "n_feats": 128
     }
