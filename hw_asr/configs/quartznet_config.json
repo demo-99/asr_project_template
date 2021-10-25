@@ -14,7 +14,7 @@
       {
         "type": "RandomApply",
         "args": {
-          "p": 0.2,
+          "p": 0.1,
           "augmentation": {
             "type": "Gain",
             "args": {}
@@ -24,7 +24,7 @@
       {
         "type": "RandomApply",
         "args": {
-          "p": 0.2,
+          "p": 0.1,
           "augmentation": {
             "type": "PeakNormalization",
             "args": {
@@ -39,7 +39,7 @@
       {
         "type": "RandomApply",
         "args": {
-          "p": 0.2,
+          "p": 0.1,
           "augmentation": {
             "type": "FrequencyMasking",
             "args": {
@@ -55,14 +55,14 @@
     "args": {
       "n_feats": 128,
       "model_config": [
-        {"hidden": 256, "repeat": 1, "kernel": 33, "stride": 2, "dilation": 1, "dropout": 0.2, "residual": false, "tcs": true},
-        {"hidden": 256, "repeat": 5, "kernel": 33, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": true, "tcs": true},
-        {"hidden": 256, "repeat": 5, "kernel": 39, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 51, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 63, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 75, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 1, "kernel": 87, "stride": 1, "dilation": 2, "dropout": 0.2, "residual": false, "tcs": true},
-        {"hidden": 1024, "repeat": 1, "kernel": 1, "stride": 1, "dilation": 1, "dropout": 0.2, "residual": false, "tcs": false}
+        {"hidden": 256, "repeat": 1, "kernel": 33, "stride": 2, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": true},
+        {"hidden": 256, "repeat": 2, "kernel": 33, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 256, "repeat": 2, "kernel": 39, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 2, "kernel": 51, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 2, "kernel": 63, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 2, "kernel": 75, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
+        {"hidden": 512, "repeat": 1, "kernel": 87, "stride": 1, "dilation": 2, "dropout": 0.0, "residual": false, "tcs": true},
+        {"hidden": 1024, "repeat": 1, "kernel": 1, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": false}
       ]
     }
   },
@@ -74,7 +74,7 @@
         {
           "type": "LibrispeechDataset",
           "args": {
-            "part": "train-clean-100",
+            "part": "train-clean-360",
             "max_audio_length": 20.0,
             "max_text_length": 200
           }
@@ -99,7 +99,7 @@
   "optimizer": {
     "type": "Adam",
     "args": {
-      "lr": 1e-3,
+      "lr": 1e-2,
       "weight_decay": 1e-4
     }
   },
@@ -125,7 +125,7 @@
     "type": "CosineAnnealingLR",
     "args": {
       "T_max": 2000,
-      "eta_min": 5e-5
+      "eta_min": 5e-4
     }
   },
   "trainer": {
