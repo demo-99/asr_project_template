@@ -150,7 +150,7 @@ class Trainer(BaseTrainer):
 
         metrics.update("loss", batch["loss"].item(), is_train)
         for met in self.metrics:
-            if (not is_train or 'Beam' not in met.name) and self.config["trainer"].get('use_beam_search', 0):
+            if (not is_train or 'Beam' not in met.name) and self.config["trainer"].get('use_beam_search', False):
                 metrics.update(met.name, met(**batch), is_train)
         return batch
 
@@ -231,7 +231,7 @@ class Trainer(BaseTrainer):
             f"predictions_raw", "< < < < > > > >".join(to_log_pred_raw)
         )
         
-        if kwargs['part'] == 'val' and self.config["trainer"].get('use_beam_search', 0):
+        if kwargs['part'] == 'val' and self.config["trainer"].get('use_beam_search', False):
             to_log_beam_search_preds = []
             beam_search_preds = []
             for log_prob, log_prob_length in zip(log_probs, log_probs_length):

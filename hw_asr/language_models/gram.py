@@ -12,7 +12,7 @@ def pretrained_language_model(language_model_path: str = '3-gram.pruned.1e-7.arp
     if not lower_language_model_path.exists():
         print('Downloading pretrained 3-gram language model.')
         lm_url = Path('http://www.openslr.org/resources/11') / language_model_path
-        language_model_path = wget.download(lm_url)
+        language_model_path = wget.download(str(lm_url))
         print('Downloaded pretrained 3-gram language model.')
 
     upper_language_model_path = language_model_path.with_suffix('')
