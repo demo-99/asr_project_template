@@ -1,16 +1,18 @@
-from math import log
 from typing import List, Tuple
+from ctcdecode import CTCBeamDecoder
 
 import numpy as np
 import torch
 
+from hw_asr.language_models.gram import pretrained_language_model
 from hw_asr.text_encoder.char_text_encoder import CharTextEncoder
 
 
 class CTCCharTextEncoder(CharTextEncoder):
     EMPTY_TOK = "^"
 
-    def __init__(self, alphabet: List[str]):
+    def __init__(self, alphabet: List[str], beam_width: int = 100, alpha: int = 0.5, beta: int = 1.0,
+                 model_path: str = '3-gram.pruned.1e-7.arpa.gz'):
         super().__init__(alphabet)
         self.ind2char = {
             0: self.EMPTY_TOK
@@ -18,6 +20,14 @@ class CTCCharTextEncoder(CharTextEncoder):
         for text in alphabet:
             self.ind2char[max(self.ind2char.keys()) + 1] = text
         self.char2ind = {v: k for k, v in self.ind2char.items()}
+        self.beam_search = CTCBeamDecoder(
+            [self.EMPTY_TOK] + alphabet,
+            model_path=pretrained_language_model(model_path),
+            alpha=alpha,
+            beta=beta,
+            beam_width=beam_width,
+            log_probs_input=True
+        )
 
     def ctc_decode(self, inds: List[int]) -> str:
         res = ""
@@ -37,7 +47,7 @@ class CTCCharTextEncoder(CharTextEncoder):
         assert len(probs.shape) == 2
         char_length, voc_size = probs.shape
         assert voc_size == len(self.ind2char)
-        hypos = []
+        # hypos = []
         # best = probs[0].argsort()[-beam_size:]
         # for i in range(1, probs.shape[0]):
         #     new_hypos = [] * beam_size
@@ -46,4 +56,6 @@ class CTCCharTextEncoder(CharTextEncoder):
         #             new_hypos[j].append(k * b)
         #     hypos = np
         # best = prob
-        return sorted(hypos, key=lambda x: x[1], reverse=True)
+        beam_results, beam_scores, timesteps, out_lens = self.beam_search.decode(probs)
+        res = ''.join([self.ind2char[int(i)] for i in beam_results[0][0][:out_lens[0][0]]])
+        return res

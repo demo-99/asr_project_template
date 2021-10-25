@@ -138,6 +138,7 @@
     "visualize": "wandb",
     "wandb_project": "asr_project",
     "len_epoch": 500,
-    "grad_norm_clip": 10
+    "grad_norm_clip": 10,
+    "use_beam_search": true
   }
 }

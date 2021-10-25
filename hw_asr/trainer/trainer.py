@@ -150,7 +150,8 @@ class Trainer(BaseTrainer):
 
         metrics.update("loss", batch["loss"].item(), is_train)
         for met in self.metrics:
-            metrics.update(met.name, met(**batch), is_train)
+            if (not is_train or 'Beam' not in met.name) and self.config["trainer"].get('use_beam_search', 0):
+                metrics.update(met.name, met(**batch), is_train)
         return batch
 
     def _valid_epoch(self, epoch):
@@ -177,10 +178,11 @@ class Trainer(BaseTrainer):
             self._log_scalars(self.valid_metrics)
             self._log_predictions(part="val", **batch)
             self._log_spectrogram(batch["spectrogram"])
+            self._log_audio(batch["audio"])
 
         # add histogram of model parameters to the tensorboard
-        # for name, p in self.model.named_parameters():
-        #     self.writer.add_histogram(name, p, bins="auto")
+        for name, p in self.model.named_parameters():
+            self.writer.add_histogram(name, p, bins="auto")
         return self.valid_metrics.result()
 
     def _progress(self, batch_idx):
@@ -228,6 +230,26 @@ class Trainer(BaseTrainer):
         self.writer.add_text(
             f"predictions_raw", "< < < < > > > >".join(to_log_pred_raw)
         )
+        
+        if kwargs['part'] == 'val' and self.config["trainer"].get('use_beam_search', 0):
+            to_log_beam_search_preds = []
+            beam_search_preds = []
+            for log_prob, log_prob_length in zip(log_probs, log_probs_length):
+                beam_search_preds.append(
+                    self.text_encoder.ctc_beam_search(
+                        log_prob[:int(log_prob_length)].unsqueeze(0)
+                    )
+                )
+
+            for pred, target in list(zip(beam_search_preds, text)):
+                wer = calc_wer(target, pred) * 100
+                cer = calc_cer(target, pred) * 100
+                to_log_beam_search_preds.append(
+                    f"true: '{target}' | pred: '{pred}' "
+                    f"| beam wer: {wer:.2f} | beam cer: {cer:.2f}"
+                )
+
+            self.writer.add_text(f"Beam-search predictions", "< < < < > > > >".join(to_log_beam_search_preds))
 
     def _log_spectrogram(self, spectrogram_batch):
         spectrogram = random.choice(spectrogram_batch)
@@ -253,3 +275,7 @@ class Trainer(BaseTrainer):
             return
         for metric_name in metric_tracker.keys():
             self.writer.add_scalar(f"{metric_name}", metric_tracker.avg(metric_name))
+
+    def _log_audio(self, audios):
+        audio = random.choice(audios)
+        self.writer.add_audio("audio", audio, self.config.config['preprocessing']['sr'])
