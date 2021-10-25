@@ -10,14 +10,51 @@
     }
   },
   "augmentations": {
-    "wave": [],
-    "spectrogram": []
+    "wave": [
+      {
+        "type": "RandomApply",
+        "args": {
+          "p": 0.1,
+          "augmentation": {
+            "type": "Gain",
+            "args": {}
+          }
+        }
+      },
+      {
+        "type": "RandomApply",
+        "args": {
+          "p": 0.1,
+          "augmentation": {
+            "type": "PeakNormalization",
+            "args": {
+              "apply_to": "only_too_loud_sounds"
+            }
+          }
+        }
+      }
+
+    ],
+    "spectrogram": [
+      {
+        "type": "RandomApply",
+        "args": {
+          "p": 0.1,
+          "augmentation": {
+            "type": "FrequencyMasking",
+            "args": {
+              "freq_mask_param": 40
+            }
+          }
+        }
+      }
+    ]
   },
   "arch": {
     "type": "CheckpointModel",
     "args": {
       "n_feats": 128,
-      "fc_hidden": 300
+      "fc_hidden": 512
     }
   },
   "data": {
@@ -55,7 +92,8 @@
   "optimizer": {
     "type": "Adam",
     "args": {
-      "lr": 1e-2
+      "lr": 1e-2,
+      "weight_decay": 1e-4
     }
   },
   "loss": {
@@ -77,10 +115,10 @@
     }
   ],
   "lr_scheduler": {
-    "type": "StepLR",
+    "type": "CosineAnnealingLR",
     "args": {
-      "step_size": 200,
-      "gamma": 0.95
+      "T_max": 2000,
+      "eta_min": 5e-4
     }
   },
   "trainer": {
