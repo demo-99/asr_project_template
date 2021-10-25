@@ -8,7 +8,7 @@ class MaskCNN(nn.Module):
         super().__init__()
         self.sequential = sequential
 
-    def forward(self, inputs, seq_lengths):
+    def forward(self, inputs, seq_length):
         output = None
 
         for module in self.sequential:
@@ -18,21 +18,18 @@ class MaskCNN(nn.Module):
             if output.is_cuda:
                 mask = mask.cuda()
 
-            seq_lengths = self._get_sequence_lengths(module, seq_lengths)
-            seq_lengths = [seq_lengths] * inputs.size(-1)
+            seq_length = self._get_sequence_length(module, seq_length)
 
-            for idx, length in enumerate(seq_lengths):
-                length = length.item()
-
-                if (mask[idx].size(2) - length) > 0:
-                    mask[idx].narrow(dim=2, start=length, length=mask[idx].size(2) - length).fill_(1)
+            for i in range(mask.size(0)):
+                if (mask[i].size(2) - seq_length) > 0:
+                    mask[i].narrow(dim=2, start=seq_length, length=mask[i].size(2) - seq_length).fill_(1)
 
             output = output.masked_fill(mask, 0)
             inputs = output
 
-        return output, seq_lengths
+        return output
 
-    def _get_sequence_lengths(self, module, seq_lengths):
+    def _get_sequence_length(self, module, seq_lengths):
         if isinstance(module, nn.Conv2d):
             numerator = seq_lengths + 2 * module.padding[1] - module.dilation[1] * (module.kernel_size[1] - 1) - 1
             seq_lengths = numerator / module.stride[1]
@@ -114,7 +111,7 @@ class DeepSpeech2(nn.Module):
 
     def forward(self, spectrogram, *args, **kwargs):
         inputs = spectrogram.unsqueeze(1).permute(0, 1, 3, 2)
-        outputs, outputs_length = self.conv(inputs, torch.Tensor([inputs.size(-1)] * inputs.size(0)))
+        outputs = self.conv(inputs, inputs.size(-1))
         batch_size, num_channels, hidden_dim, seq_length = outputs.size()
         outputs = outputs.view(batch_size, num_channels * hidden_dim, seq_length).permute(2, 0, 1).contiguous()
 
