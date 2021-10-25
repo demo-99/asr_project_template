@@ -1,5 +1,5 @@
 {
-  "name": "deepspeach_config",
+  "name": "deepspeech_config",
   "n_gpu": 1,
   "preprocessing": {
     "sr": 16000,
@@ -22,15 +22,9 @@
         }
       },
       {
-        "type": "RandomApply",
+        "type": "PeakNormalization",
         "args": {
-          "p": 0.1,
-          "augmentation": {
-            "type": "PeakNormalization",
-            "args": {
-              "apply_to": "only_too_loud_sounds"
-            }
-          }
+          "apply_to": "only_too_loud_sounds"
         }
       }
 
@@ -53,17 +47,7 @@
   "arch": {
     "type": "QuartzNet",
     "args": {
-      "n_feats": 128,
-      "model_config": [
-        {"hidden": 256, "repeat": 1, "kernel": 33, "stride": 2, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": true},
-        {"hidden": 256, "repeat": 5, "kernel": 33, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 256, "repeat": 5, "kernel": 39, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 51, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 63, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 5, "kernel": 75, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": true, "tcs": true},
-        {"hidden": 512, "repeat": 1, "kernel": 87, "stride": 1, "dilation": 2, "dropout": 0.0, "residual": false, "tcs": true},
-        {"hidden": 1024, "repeat": 1, "kernel": 1, "stride": 1, "dilation": 1, "dropout": 0.0, "residual": false, "tcs": false}
-      ]
+      "n_feats": 128
     }
   },
   "data": {
