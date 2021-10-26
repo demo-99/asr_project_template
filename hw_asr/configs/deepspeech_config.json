@@ -26,8 +26,13 @@
         "args": {
           "apply_to": "only_too_loud_sounds"
         }
+      },
+      {
+        "type": "AddColoredNoise",
+        "args": {
+          "sample_rate": 16000
+        }
       }
-
     ],
     "spectrogram": [
       {
@@ -52,29 +57,29 @@
   },
   "data": {
     "train": {
-      "batch_size": 10,
+      "batch_size": 32,
       "num_workers": 4,
       "datasets": [
         {
           "type": "LibrispeechDataset",
           "args": {
             "part": "train-clean-360",
-            "max_audio_length": 20.0,
-            "max_text_length": 200
+            "max_audio_length": 30.0,
+            "max_text_length": 300
           }
         }
       ]
     },
     "val": {
-      "batch_size": 10,
+      "batch_size": 32,
       "num_workers": 4,
       "datasets": [
         {
           "type": "LibrispeechDataset",
           "args": {
             "part": "dev-clean",
-            "max_audio_length": 20.0,
-            "max_text_length": 200
+            "max_audio_length": 30.0,
+            "max_text_length": 300
           }
         }
       ]
