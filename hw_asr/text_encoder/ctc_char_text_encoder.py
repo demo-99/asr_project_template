@@ -59,5 +59,5 @@ class CTCCharTextEncoder(CharTextEncoder):
 
         res = []
         for j in range(beam_results.size(-1)):
-            res.append = ''.join([self.ind2char[int(i)] for i in beam_results[0][j][:out_lens[0][j]]])
+            res.append(''.join([self.ind2char[int(i)] for i in beam_results[0][j][:out_lens[0][j]]]))
         return res
