@@ -107,13 +107,13 @@
     {
       "type": "BeamWERMetric",
       "args": {
-        "name": "WER (beam-search)"
+        "name": "WER (Beam-search)"
       }
     },
     {
       "type": "BeamCERMetric",
       "args": {
-        "name": "CER (beam-search)"
+        "name": "CER (Beam-search)"
       }
     }
   ],
