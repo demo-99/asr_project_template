@@ -10,44 +10,8 @@
     }
   },
   "augmentations": {
-    "wave": [
-      {
-        "type": "RandomApply",
-        "args": {
-          "p": 0.1,
-          "augmentation": {
-            "type": "Gain",
-            "args": {}
-          }
-        }
-      },
-      {
-        "type": "PeakNormalization",
-        "args": {
-          "apply_to": "only_too_loud_sounds"
-        }
-      },
-      {
-        "type": "AddColoredNoise",
-        "args": {
-          "sample_rate": 16000
-        }
-      }
-    ],
-    "spectrogram": [
-      {
-        "type": "RandomApply",
-        "args": {
-          "p": 0.1,
-          "augmentation": {
-            "type": "FrequencyMasking",
-            "args": {
-              "freq_mask_param": 40
-            }
-          }
-        }
-      }
-    ]
+    "wave": [],
+    "spectrogram": []
   },
   "arch": {
     "type": "DeepSpeech2",
