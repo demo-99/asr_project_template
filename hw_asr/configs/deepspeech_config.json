@@ -57,7 +57,7 @@
   },
   "data": {
     "train": {
-      "batch_size": 20,
+      "batch_size": 64,
       "num_workers": 4,
       "datasets": [
         {
@@ -71,7 +71,7 @@
       ]
     },
     "val": {
-      "batch_size": 20,
+      "batch_size": 64,
       "num_workers": 4,
       "datasets": [
         {
@@ -88,8 +88,7 @@
   "optimizer": {
     "type": "AdamW",
     "args": {
-      "lr": 3e-4,
-      "weight_decay": 1e-5
+      "lr": 3e-4
     }
   },
   "loss": {
@@ -113,8 +112,8 @@
   "lr_scheduler": {
     "type": "CosineAnnealingLR",
     "args": {
-      "T_max": 500,
-      "eta_min": 1e-5
+      "T_max": 100,
+      "eta_min": 1e-6
     }
   },
   "trainer": {
