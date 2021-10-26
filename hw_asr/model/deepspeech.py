@@ -77,10 +77,8 @@ class DeepSpeech2(nn.Module):
             rnn_hidden_dim: int = 512,
             dropout_p: float = 0.1,
             bidirectional: bool = True,
-            device: torch.device = 'cuda',
     ):
         super(DeepSpeech2, self).__init__()
-        self.device = device
         self.conv = MaskCNN(
             nn.Sequential(
                 nn.Conv2d(1, 32, kernel_size=(41, 11), stride=(2, 2), padding=(20, 5)),
@@ -94,10 +92,10 @@ class DeepSpeech2(nn.Module):
         self.layers = nn.ModuleList()
         rnn_output_size = rnn_hidden_dim << 1 if bidirectional else rnn_hidden_dim
 
-        for idx in range(num_rnn_layers):
+        for i in range(num_rnn_layers):
             self.layers.append(
                 BNReluRNN(
-                    input_size=((n_feats + 1) // 2 + 1) // 2 * 32 if idx == 0 else rnn_output_size,
+                    input_size=((n_feats + 1) // 2 + 1) // 2 * 32 if i == 0 else rnn_output_size,
                     hidden_state_dim=rnn_hidden_dim,
                     bidirectional=bidirectional,
                     dropout_p=dropout_p,
