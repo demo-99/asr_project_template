@@ -10,3 +10,11 @@ class PeakNormalization(AugmentationBase):
 
     def __call__(self, data: torch.Tensor):
         return self._aug(data.unsqueeze(1)).squeeze(1)
+
+
+class AddColoredNoise(AugmentationBase):
+    def __init__(self, *args, **kwargs):
+        self._aug = torch_audiomentations.AddColoredNoise(*args, **kwargs)
+
+    def __call__(self, data: torch.Tensor):
+        return self._aug(data.unsqueeze(1)).squeeze(1)

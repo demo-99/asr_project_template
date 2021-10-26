@@ -26,8 +26,11 @@
         "args": {
           "apply_to": "only_too_loud_sounds"
         }
+      },
+      {
+        "type": "AddBackgroundNoise",
+        "args": {}
       }
-
     ],
     "spectrogram": [
       {
