@@ -34,13 +34,11 @@ class BeamCERMetric(BaseMetric):
         super().__init__(*args, **kwargs)
         self.text_encoder = text_encoder
 
-    def __call__(self, log_probs: Tensor, text: List[str], *args, **kwargs):
+    def __call__(self, log_probs: Tensor, text: List[str], log_probs_length, *args, **kwargs):
         cers = []
         predictions = []
-        for i in range(log_probs.size(0)):
-            tmp_probs = log_probs[i][:int(kwargs['log_probs_length'][i])]
-            tmp_probs = tmp_probs.reshape(1, tmp_probs.size(0), tmp_probs.size(1))
-            predictions.append(tmp_probs)
+        for log_prob, log_prob_length in zip(log_probs, log_probs_length):
+            predictions.append(log_prob[:int(log_prob_length)].unsqueeze(0))
 
         for log_prob_vec, target_text in zip(predictions, text):
             if hasattr(self.text_encoder, "ctc_beam_search"):
