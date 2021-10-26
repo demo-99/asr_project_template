@@ -28,7 +28,7 @@
         }
       },
       {
-        "type": "AddBackgroundNoise",
+        "type": "AddColoredNoise",
         "args": {}
       }
     ],
