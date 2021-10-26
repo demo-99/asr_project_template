@@ -29,7 +29,9 @@
       },
       {
         "type": "AddColoredNoise",
-        "args": {}
+        "args": {
+          "sample_rate": 16000
+        }
       }
     ],
     "spectrogram": [
