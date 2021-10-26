@@ -83,7 +83,7 @@
   "optimizer": {
     "type": "AdamW",
     "args": {
-      "lr": 1e-3,
+      "lr": 3e-4,
       "weight_decay": 1e-4
     }
   },
@@ -108,8 +108,8 @@
   "lr_scheduler": {
     "type": "CosineAnnealingLR",
     "args": {
-      "T_max": 2000,
-      "eta_min": 5e-4
+      "T_max": 500,
+      "eta_min": 1e-5
     }
   },
   "trainer": {
