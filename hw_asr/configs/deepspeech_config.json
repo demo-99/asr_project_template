@@ -93,6 +93,18 @@
   },
   "metrics": [
     {
+      "type": "ArgmaxWERMetric",
+      "args": {
+        "name": "WER (argmax)"
+      }
+    },
+    {
+      "type": "ArgmaxCERMetric",
+      "args": {
+        "name": "CER (argmax)"
+      }
+    },
+    {
       "type": "BeamWERMetric",
       "args": {
         "name": "WER (beam-search)"
